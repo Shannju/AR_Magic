@@ -18,6 +18,7 @@ public class DestructibleGlobalMeshManager : MonoBehaviour
 
         // 只在这里添加监听
         FireBall.OnFireBallCollision += DestroyMeshSegment; // 监听火球碰撞事件
+        WindBall.OnWindBallCollision += DestroyMeshSegment; // 监听风球碰撞事件
     }
 
     // This method sets up the components for the destructible mesh

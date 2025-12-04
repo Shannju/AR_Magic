@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FireBall : MonoBehaviour
 {
@@ -8,12 +9,12 @@ public class FireBall : MonoBehaviour
     public float Speed = 10; // m/s
 
     // 事件，墙面可以监听
-    public delegate void FireBallCollisionEvent(GameObject collidedObject); // 修改为传递 GameObject
+    public delegate void FireBallCollisionEvent(GameObject collidedObject);
     public static event FireBallCollisionEvent OnFireBallCollision;
 
     void Start()
     {
-        Rb.linearVelocity = transform.up * Speed; // 设置火球的初速度
+        Rb.linearVelocity = transform.up * Speed;
         isCollision = false;
     }
 
@@ -25,11 +26,19 @@ public class FireBall : MonoBehaviour
             Rb.linearVelocity = Vector3.zero;
             isCollision = true;
 
-            // Fireball碰撞后通知监听者，并传递碰撞到的墙面对象的 GameObject
-            OnFireBallCollision?.Invoke(collision.gameObject);  // 传递碰撞的物体的 GameObject
-
-            // 立即销毁火球
-            Destroy(gameObject); // 立即销毁火球
+            // 开启计时器，稍后再执行销毁逻辑
+            StartCoroutine(DelayHit(collision.gameObject));
         }
+    }
+
+    private IEnumerator DelayHit(GameObject hitObject)
+    {
+        yield return new WaitForSeconds(2.5f);  // 等待时间可调
+
+        // 通知监听者
+        OnFireBallCollision?.Invoke(hitObject);
+
+        // 销毁火球
+        Destroy(gameObject);
     }
 }
