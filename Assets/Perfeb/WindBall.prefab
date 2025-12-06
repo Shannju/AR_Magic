@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 909743734446714962}
   Speed: 2
+  DelayBeforeDestroy: 0
 --- !u!1001 &6689238120873712144
 PrefabInstance:
   m_ObjectHideFlags: 0
