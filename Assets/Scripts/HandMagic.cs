@@ -59,7 +59,10 @@ public class HandMagic : MonoBehaviour
     private float[] speedHistory;
     private int speedHistoryIndex = 0;
     private bool speedHistoryInitialized = false;
-    
+
+
+    public event System.Action<MagicBall> OnBallCast;
+
     void Start()
     {
         // 初始化速度历史数组
@@ -455,9 +458,23 @@ public class HandMagic : MonoBehaviour
         
         if (ballPrefab != null && Firepoint != null)
         {
-            Instantiate(ballPrefab, Firepoint.position, Firepoint.rotation);
-            Debug.Log($"{ballName}已生成！");
-            SetMagicState(magicType, false); // 生成后立即解除对应状态
+            if (ballPrefab != null && Firepoint != null)
+            {
+                // 1. 实例化法球并获取 GameObject 引用
+                GameObject newBallGO = Instantiate(ballPrefab, Firepoint.position, Firepoint.rotation);
+
+                // 2. 尝试获取其基类脚本 MagicBall 的引用
+                MagicBall newBallInstance = newBallGO.GetComponent<MagicBall>();
+
+                if (newBallInstance != null)
+                {
+                    // 3. 【关键】触发 OnBallCast 事件，将新生成的实例传递给监听者
+                    OnBallCast?.Invoke(newBallInstance);
+                }
+
+                Debug.Log($"{ballName}已生成！");
+                SetMagicState(magicType, false); // 生成后立即解除对应状态
+            }
         }
     }
     
