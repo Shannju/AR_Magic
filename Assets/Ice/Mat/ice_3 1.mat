@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ice_3 1
+  m_Shader: {fileID: 4800000, guid: a7ebc36278867904aab97c9a8c7682a8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Cubmap:
+        m_Texture: {fileID: 8900000, guid: f3725553e72e0d74b8fef0983cc682a2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmiTex:
+        m_Texture: {fileID: 2800000, guid: b9ddebb8ddc5edb4092932ab4015c1b4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: b9d91d35e0b37514baa9773142b52f28, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 0840463dbf4aa3f4eb6970a1212a3d52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecTex:
+        m_Texture: {fileID: 2800000, guid: e09425f545eb3cf41bc13b9b0b737286, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _dissolve:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _mask:
+        m_Texture: {fileID: 2800000, guid: 9aafe87edc23a09449ea8d59b07597aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CubemapMip: 3.61
+    - _CufOffSoft: 0
+    - _CutOffIntensity: 0.007
+    - _EmitInt: 10
+    - _EnvDiffInt: 1
+    - _EnvSpecInt: 1.46
+    - _FresnelPow: 1.84
+    - _NormalScale: 0.843
+    - _SpecPow: 116
+    - _Test: 1.12
+    - _Zwrite: 1
+    - _distor: 0
+    m_Colors:
+    - _EmiCol: {r: 0, g: 0.84816754, b: 1, a: 1}
+    - _EnvDownCol: {r: 0.254717, g: 0.24150054, b: 0.24150054, a: 1}
+    - _EnvSideCol: {r: 0.7028302, g: 0.87970173, b: 1, a: 1}
+    - _EnvUpCol: {r: 0.51257855, g: 0.8477512, b: 1, a: 1}
+    - _Light: {r: 0.99, g: 0.43, b: 0, a: -1}
+    - _MainCol: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ice_6 1
+  m_Shader: {fileID: 4800000, guid: a7ebc36278867904aab97c9a8c7682a8, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Cubmap:
+        m_Texture: {fileID: 8900000, guid: 64b01ec2b772da749b83be963f1a61c2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmiTex:
+        m_Texture: {fileID: 2800000, guid: fbd610525d2bde1498c9303c64c5f101, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: b9d91d35e0b37514baa9773142b52f28, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 5fe1e41e65bdd664ebb0ac62b7b471a2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: -0.03}
+    - _SpecTex:
+        m_Texture: {fileID: 2800000, guid: 89f236dfe4e58f344830ad03665cf91f, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - _dissolve:
+        m_Texture: {fileID: 2800000, guid: 90b4616452714ae47bcdd719d84be0a4, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _mask:
+        m_Texture: {fileID: 2800000, guid: 9aafe87edc23a09449ea8d59b07597aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CubemapMip: 3.85
+    - _CufOffSoft: 0
+    - _CutOffIntensity: 0.129
+    - _EmitInt: 2.83
+    - _EnvDiffInt: 0.451
+    - _EnvSpecInt: 1.57
+    - _FresnelPow: 1.54
+    - _NormalScale: 1.281
+    - _SpecPow: 58
+    - _Test: 1.12
+    - _Zwrite: 1
+    - _distor: 0.03
+    m_Colors:
+    - _EmiCol: {r: 1.3464948, g: 1.4343096, b: 5.5908804, a: 0.92941177}
+    - _EnvDownCol: {r: 0.254717, g: 0.24150054, b: 0.24150054, a: 1}
+    - _EnvSideCol: {r: 0.7028302, g: 0.87970173, b: 1, a: 1}
+    - _EnvUpCol: {r: 0.7216981, g: 0.90597916, b: 1, a: 1}
+    - _Light: {r: 0.99, g: 0.41, b: 0.03, a: 0.72}
+    - _MainCol: {r: 0.43867922, g: 0.62740153, b: 1, a: 1}

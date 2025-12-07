@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 08c6963318e10b548bd1d85c94705b6b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - leftHand: {instanceID: 0}
+  - leftSkeleton: {instanceID: 0}
+  - shieldPrefab: {fileID: 919132149155446097, guid: 667df39bb3df416489c289a9ffcd116a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

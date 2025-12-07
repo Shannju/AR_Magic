@@ -1,0 +1,7 @@
+This is to compile the ice material using code. The URP rendering pipeline supports most unity versions. 
+It is recommended to use the version above 2019. If you have any questions, you can write to us at 402057377@qq.com .
+Thank you very much for your use.
+
+
+
+ ##If your performance is abnormal after installation, please check the settings and see picture 8
