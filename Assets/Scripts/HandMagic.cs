@@ -18,6 +18,8 @@ public class HandMagic : MonoBehaviour
     public float oppositionThreshold = 0.8f;
 
     public GameObject XRHand_Palm;
+    public GameObject OpenXRRightHand;
+
 
     [Header("Fire Magic Settings")]
     public Transform Firepoint;
@@ -261,7 +263,6 @@ public class HandMagic : MonoBehaviour
     private void CheckHandSpeedAndShootBall(MagicType magicType)
     {
         if (RightHand == null || !RightHand.IsTracked || Firepoint == null) return;
-
         Vector3 currentHandPosition = GetPalmPosition();
         float currentSpeed = Vector3.Distance(previousHandPosition, currentHandPosition) / Time.deltaTime;
         // 计算手部的移动方向
@@ -282,11 +283,16 @@ public class HandMagic : MonoBehaviour
         Debug.Log("魔法球发射准备");
 
         // 魔法球发射
-        if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
+        if (OpenXRRightHand.transform.position.y > 1f)
         {
-            FireBallProjectile();
-            this.lastBallTime = Time.time;
+            if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
+            {
+                FireBallProjectile();
+                this.lastBallTime = Time.time;
+            }
         }
+
+
 
         previousHandPosition = currentHandPosition;
     }
@@ -369,8 +375,6 @@ public class HandMagic : MonoBehaviour
             MagicBall magicBallScript = currentBall.GetComponent<MagicBall>();
             Debug.Log($"魔法球发射，速度：{GetAverageSpeed():F2} 米/秒");
             magicBallScript.StartMoving();
-
-
         }
     }
 

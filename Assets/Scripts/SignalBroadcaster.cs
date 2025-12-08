@@ -16,6 +16,7 @@ public class SignalBroadcaster : MonoBehaviour
     public void BroadcastIncreaseSignal()
     {
         OnIncreaseSignal?.Invoke();
+        Debug.Log("增强信号");
     }
 
     // 广播落地信号

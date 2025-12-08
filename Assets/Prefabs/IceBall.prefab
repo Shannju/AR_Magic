@@ -39400,14 +39400,14 @@ GameObject:
   - component: {fileID: 8988372951398901918}
   - component: {fileID: 6864613887301730250}
   - component: {fileID: 3848484371876456859}
-  - component: {fileID: 3521648497571065911}
+  - component: {fileID: -2867306214596783419}
   m_Layer: 0
   m_Name: IceBall
   m_TagString: Magic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4015318608819213249
 Transform:
   m_ObjectHideFlags: 0
@@ -39525,7 +39525,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &3521648497571065911
+--- !u!114 &-2867306214596783419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39534,11 +39534,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6293203003390812209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0cc124c36eadcb46b9f5487eba6ed2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 61de98440ddbc6f47b377850f2b7f96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 3848484371876456859}
-  Speed: 1
+  Speed: 30
   DelayBeforeDestroy: 2.5
   minSize: 1
   maxSize: 3
@@ -39546,6 +39546,9 @@ MonoBehaviour:
   maxColliderSize: 9
   growthSpeed: 0.5
   shrinkSpeed: 0.2
+  iceEffectPrefab: {fileID: 3522604301258223729, guid: 774f32966821fd945a6b58c7e834e592, type: 3}
+  yThreshold: 1
+  effectScaleTime: 0.5
 --- !u!1 &7316551390788216025
 GameObject:
   m_ObjectHideFlags: 0

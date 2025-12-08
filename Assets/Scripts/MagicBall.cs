@@ -78,8 +78,6 @@ public abstract class MagicBall : MonoBehaviour
             // 协程将处理延迟后的事件触发和魔法球销毁
             StartCoroutine(DelayEventAndDestroySelf());
         }
-
-
     }
 
     /// <summary>
@@ -90,7 +88,6 @@ public abstract class MagicBall : MonoBehaviour
         MagicBallCollisionEventArgs args = new MagicBallCollisionEventArgs(hitObject);
         OnMagicBallCollision?.Invoke(this, args);
     }
-
     /// <summary>
     /// 协程：处理延迟触发事件和魔法球自毁。
     /// </summary>
@@ -115,38 +112,36 @@ public abstract class MagicBall : MonoBehaviour
     // 新增的逻辑：根据是否在运动控制是否改变大小
     protected virtual void Update()
     {
-        if (!isMoving)  // 只有在不运动时才修改大小
+        // 不移动时才允许生长
+        if (!isMoving)
         {
             if (isGrowing)
             {
-                // 增长逻辑：修改子物体大小
-                meshTransform.localScale = Vector3.Lerp(meshTransform.localScale, Vector3.one * maxSize, growthSpeed * Time.deltaTime);
-                // 增加Collider的大小
+                // 子物体 Mesh 放大
+                meshTransform.localScale = Vector3.Lerp(
+                    meshTransform.localScale,
+                    Vector3.one * maxSize,
+                    growthSpeed * Time.deltaTime
+                );
+
+                // Collider 放大
                 if (magicBallCollider != null)
                 {
-                    magicBallCollider.transform.localScale = Vector3.Lerp(magicBallCollider.transform.localScale, Vector3.one * maxColliderSize, growthSpeed * Time.deltaTime);
+                    magicBallCollider.transform.localScale = Vector3.Lerp(
+                        magicBallCollider.transform.localScale,
+                        Vector3.one * maxColliderSize,
+                        growthSpeed * Time.deltaTime
+                    );
                 }
 
-                // 达到最大值后停止增长
-                if (meshTransform.localScale.x >= maxSize)
+                // 达到最大值 → 自动停止生长
+                if (meshTransform.localScale.x >= maxSize * 0.98f) // 允许一点误差
                 {
-                    isGrowing = false;
-                }
-            }
-            else if (isShrinking)
-            {
-                // 缩小逻辑：修改子物体大小
-                meshTransform.localScale = Vector3.Lerp(meshTransform.localScale, Vector3.one * minSize, shrinkSpeed * Time.deltaTime);
-                // 减少Collider的大小
-                if (magicBallCollider != null)
-                {
-                    magicBallCollider.transform.localScale = Vector3.Lerp(magicBallCollider.transform.localScale, Vector3.one * minColliderSize, shrinkSpeed * Time.deltaTime);
-                }
+                    meshTransform.localScale = Vector3.one * maxSize;      // 强制对齐
+                    magicBallCollider.transform.localScale = Vector3.one * maxColliderSize;
 
-                // 达到最小值后停止缩小
-                if (meshTransform.localScale.x <= minSize)
-                {
-                    isShrinking = false;
+                    isGrowing = false; // 停止生长
+                    Debug.Log("MagicBall reached max size.");
                 }
             }
         }
@@ -167,6 +162,20 @@ public abstract class MagicBall : MonoBehaviour
         Rb.isKinematic = true;
         Rb.linearVelocity = Vector3.zero;  // 停止运动
     }
+
+    // 开始生长
+    public void BeginGrowth()
+    {
+        isGrowing = true;
+        isShrinking = false; // 禁止缩小
+    }
+
+    // 停止生长
+    public void StopGrowth()
+    {
+        isGrowing = false;
+    }
+
 }
 
 
