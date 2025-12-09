@@ -153,7 +153,14 @@ TextureImporter:
 AssetOrigin:
   serializedVersion: 1
   productId: 170242
-  packageName: "Magic VFX \u2013 Ice (FREE)"
+  packageName: "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+  packageVersion: 1.0
+  assetPath: Assets/Magic VFX/Magic VFX - Ice (FREE)/Models/Materials/SnowFlakes_01.png
+  uploadId: 374438
+AssetOrigin:
+  serializedVersion: 1
+  productId: 170242
+  packageName: 
   packageVersion: 1.0
   assetPath: Assets/Magic VFX/Magic VFX - Ice (FREE)/Models/Materials/SnowFlakes_01.png
   uploadId: 374438
