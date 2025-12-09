@@ -46,6 +46,7 @@ public abstract class MagicBall : MonoBehaviour
     // ------------------------------
     protected virtual void OnCollisionEnter(Collision collision)
     {
+
         Debug.Log($"[MagicBall Collision] {gameObject.name} hit: {collision.collider.name}, Tag = {collision.collider.tag}");
 
         if (isCollisionHandled) return;

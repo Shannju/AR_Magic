@@ -285,15 +285,10 @@ public class HandMagic : MonoBehaviour
         // 魔法球发射
         if (OpenXRRightHand.transform.position.y > 1f)
         {
-
-
             if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
             {
-                Debug.Log("移到根目录");
                 currentBall.transform.SetParent(null);
                 currentBall.transform.SetPositionAndRotation(Firepoint.transform.position, Firepoint.transform.rotation);
-
-
                 FireBallProjectile();
                 this.lastBallTime = Time.time;
             }

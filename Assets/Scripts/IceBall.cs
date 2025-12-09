@@ -6,7 +6,7 @@ public class IceBall : MagicBall
     [Header("IceBall Settings")]
     [SerializeField] private GameObject iceEffectPrefab;  // 冰爆炸特效 Prefab
     [SerializeField] private float yThreshold = 1f;       // 触地高度阈值
-    [SerializeField] private float effectScaleTime = 1f;  // 特效播放大致时间，用来控制等待
+    [SerializeField] private float effectScaleTime = 1f;  // 可选：用来控制冰球自己多久后消失
 
     private Transform iceMeshTransform;
     private Collider iceCollider;
@@ -41,9 +41,15 @@ public class IceBall : MagicBall
         // 是 DestructibleMeshSegment，计算接触点
         Vector3 contactPoint = collision.GetContact(0).point;
 
-        // ✅ 情况一：低于阈值，只放地面冰特效，不破坏 mesh
+        // ✅ 情况一：低于阈值，播放地面冰特效
         if (contactPoint.y < yThreshold)
         {
+            // 如果你希望冰球从手上“脱离出来”，可以把它从父物体解耦
+            transform.SetParent(null);
+
+            // 这句看你设计，如果想同时触发基类的破坏逻辑，可以保留
+            base.OnCollisionEnter(collision);
+
             hasPlayedEffect = true;
 
             // 停止物理运动
@@ -55,8 +61,6 @@ public class IceBall : MagicBall
 
             // 播放冰特效（协程）
             PlayIceEffect(contactPoint);
-
-            // 不再调用基类 → 不走破坏逻辑
             return;
         }
 
@@ -82,29 +86,25 @@ public class IceBall : MagicBall
         if (iceCollider != null)
             iceCollider.enabled = false;
 
-        // 2. 创建冰特效 prefab
-        GameObject effectInstance = null;
+        // 2. 创建冰特效 prefab（交给 prefab 自己的 AutoDestroyEffect 管理寿命）
         if (iceEffectPrefab != null)
         {
-            effectInstance = Instantiate(iceEffectPrefab, spawnPosition, Quaternion.identity);
+            GameObject effectInstance = Instantiate(iceEffectPrefab, spawnPosition, Quaternion.identity);
+
         }
         else
         {
             Debug.LogWarning("[IceBall] iceEffectPrefab 未指定，无法播放冰特效");
-            yield break;
         }
 
-        // 3. 等待一段时间，让特效播放完（这里用 DelayBeforeDestroy 和 effectScaleTime 配合）
+        // 3. 冰球自己等一会儿再销毁（这和特效的 lifeTime 可以一样也可以不一样）
         float remain = Mathf.Max(0f, DelayBeforeDestroy - effectScaleTime);
         if (remain > 0f)
             yield return new WaitForSeconds(remain);
 
-        // 4. 清除特效并销毁冰球本体
-        if (effectInstance != null)
-            Destroy(effectInstance);
-
+        // 4. 只销毁冰球本体，特效的销毁由 AutoDestroyEffect 自己控制
         Destroy(gameObject);
 
-        Debug.Log("[IceBall] Ground ice effect finished, self-destruct.");
+        Debug.Log("[IceBall] Ground ice effect finished, self-destruct (ball only).");
     }
 }

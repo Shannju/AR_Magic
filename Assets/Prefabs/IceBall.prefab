@@ -39539,7 +39539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 3848484371876456859}
   Speed: 12.2
-  DelayBeforeDestroy: 3
+  DelayBeforeDestroy: 2
   minSize: 0
   maxSize: 2
   growthSpeed: 1
