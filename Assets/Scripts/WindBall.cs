@@ -6,5 +6,12 @@ public class WindBall : MagicBall
     {
         base.Start(); // 调用基类的 Start 方法，设置速度等
     }
-   
+    protected override void Update()
+    {
+        if (isMoving)
+        {
+            Grow();
+        }
+
+    }
 }

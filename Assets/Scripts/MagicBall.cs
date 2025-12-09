@@ -18,164 +18,124 @@ public abstract class MagicBall : MonoBehaviour
     [Range(0, 200)]
     public float Speed = 30f;
 
-    // 延迟时间（Inspector 可配置）
     [Tooltip("碰撞发生后到触发事件并销毁之间等待的时间。")]
     public float DelayBeforeDestroy = 2.5f;
 
-    private bool isCollisionHandled = false;  // 确保只处理一次碰撞
-    private GameObject collidedTarget = null; // 存储被击中的目标
-    private bool isMoving = false;  // 魔法球是否在运动
+    private bool isCollisionHandled = false;
+    private GameObject collidedTarget = null;
+    protected bool isMoving = false;
 
-    // 事件委托和事件本身
+    // 事件委托
     public delegate void MagicBallCollisionEvent(object sender, MagicBallCollisionEventArgs e);
     public event MagicBallCollisionEvent OnMagicBallCollision;
 
-    // 新增的变量，用于控制魔法球大小变化的范围
-    public float minSize = 1f;  // 最小大小
-    public float maxSize = 3f;  // 最大大小
-    public float minColliderSize = 1f;  // 最小Collider大小
-    public float maxColliderSize = 9f;  // 最大Collider大小
-    public float growthSpeed = 0.5f;  // 增长速度
-    public float shrinkSpeed = 0.2f;  // 缩小速度
+    // 🔧 现在只有整体缩放相关参数
+    public float minSize = 1f;
+    public float maxSize = 2f;
+    public float growthSpeed = 0.5f;
 
-    private bool isGrowing = false;  // 是否在增长
-    private bool isShrinking = false;  // 是否在缩小
-
-    private Transform meshTransform;  // 子物体的 Transform（挂载网格的物体）
-    private Collider magicBallCollider;  // 引用魔法球的 Collider
+    private bool isGrowing = false;
 
     protected virtual void Start()
     {
-        // 获取子物体的 Transform（假设子物体名称为 "Mesh"）
-        meshTransform = transform.Find("Mesh");  // 获取挂载网格的子物体
-        magicBallCollider = GetComponent<Collider>();  // 获取物体本身的 Collider
-
         isCollisionHandled = false;
     }
 
+    // ------------------------------
+    //         碰撞处理
+    // ------------------------------
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        // --- 调试输出 ---
         Debug.Log($"[MagicBall Collision] {gameObject.name} hit: {collision.collider.name}, Tag = {collision.collider.tag}");
 
-        // 确保只处理一次碰撞
         if (isCollisionHandled) return;
 
-        // 忽略与魔杖的碰撞
         if (collision.collider.CompareTag("Wand"))
             return;
 
         if (collision.collider.name == "DestructibleMeshSegment")
         {
-            // 1. 标记碰撞已处理，并停止球的运动
             isCollisionHandled = true;
             StopMoving();
 
-            // 2. 存储被击中的目标，以便协程稍后使用
             collidedTarget = collision.gameObject;
 
-            // 3. 立即启动协程，等待延迟
-            // 协程将处理延迟后的事件触发和魔法球销毁
             StartCoroutine(DelayEventAndDestroySelf());
         }
     }
 
-    /// <summary>
-    /// 触发 OnMagicBallCollision 事件，通知监听者。
-    /// </summary>
     protected virtual void RaiseCollisionEvent(GameObject hitObject)
     {
-        MagicBallCollisionEventArgs args = new MagicBallCollisionEventArgs(hitObject);
+        var args = new MagicBallCollisionEventArgs(hitObject);
         OnMagicBallCollision?.Invoke(this, args);
     }
-    /// <summary>
-    /// 协程：处理延迟触发事件和魔法球自毁。
-    /// </summary>
+
     private IEnumerator DelayEventAndDestroySelf()
     {
-
-        // 1. 等待指定的延迟时间
         yield return new WaitForSeconds(DelayBeforeDestroy);
 
-        // 2. 延迟时间结束后，先通知外部组件发生了碰撞
         if (collidedTarget != null)
         {
             Debug.Log($"Delayed collision event triggered for {collidedTarget.name} after {DelayBeforeDestroy}s.");
             RaiseCollisionEvent(collidedTarget);
         }
 
-        // 3. 最后销毁魔法球自身
         Debug.Log("MagicBall self-destructed.");
         Destroy(gameObject);
     }
 
-    // 新增的逻辑：根据是否在运动控制是否改变大小
-    protected virtual void Update()
-    {
-        // 不移动时才允许生长
-        if (!isMoving)
-        {
-            if (isGrowing)
-            {
-                // 子物体 Mesh 放大
-                meshTransform.localScale = Vector3.Lerp(
-                    meshTransform.localScale,
-                    Vector3.one * maxSize,
-                    growthSpeed * Time.deltaTime
-                );
-
-                // Collider 放大
-                if (magicBallCollider != null)
-                {
-                    magicBallCollider.transform.localScale = Vector3.Lerp(
-                        magicBallCollider.transform.localScale,
-                        Vector3.one * maxColliderSize,
-                        growthSpeed * Time.deltaTime
-                    );
-                }
-
-                // 达到最大值 → 自动停止生长
-                if (meshTransform.localScale.x >= maxSize * 0.98f) // 允许一点误差
-                {
-                    meshTransform.localScale = Vector3.one * maxSize;      // 强制对齐
-                    magicBallCollider.transform.localScale = Vector3.one * maxColliderSize;
-
-                    isGrowing = false; // 停止生长
-                    Debug.Log("MagicBall reached max size.");
-                }
-            }
-        }
-    }
-
-    // 开始运动的方法
+    // ------------------------------
+    //         运动控制
+    // ------------------------------
     public void StartMoving()
     {
         isMoving = true;
-        Rb.linearVelocity = transform.up * Speed;  // 使用手部的移动方向和速度
+        Rb.linearVelocity = transform.up * Speed;
     }
 
-
-    // 停止运动的方法
     public void StopMoving()
     {
         isMoving = false;
         Rb.isKinematic = true;
-        Rb.linearVelocity = Vector3.zero;  // 停止运动
+        Rb.linearVelocity = Vector3.zero;
     }
 
-    // 开始生长
+    // ------------------------------
+    //         大小变化（简化版）
+    // ------------------------------
     public void BeginGrowth()
     {
         isGrowing = true;
-        isShrinking = false; // 禁止缩小
     }
 
-    // 停止生长
     public void StopGrowth()
     {
         isGrowing = false;
     }
 
+    protected virtual void Update()
+    {
+        Grow();
+    }
+
+    protected  void Grow()
+    {
+        if (!isGrowing) return;
+
+        // ⭐ 只缩放这个物体本身，不再管 mesh / collider
+        transform.localScale = Vector3.Lerp(
+            transform.localScale,
+            Vector3.one * maxSize,
+            growthSpeed * Time.deltaTime
+        );
+
+        // 达到最大 → 停止
+        if (transform.localScale.x >= maxSize * 0.98f)
+        {
+            transform.localScale = Vector3.one * maxSize;
+            isGrowing = false;
+
+            Debug.Log("MagicBall reached max size.");
+        }
+    }
 }
-
-

@@ -84,7 +84,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4037405495158977300}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -184,13 +184,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 5838644996129815052}
   Speed: 5
-  DelayBeforeDestroy: 2.5
-  minSize: 1
-  maxSize: 3
-  minColliderSize: 1
-  maxColliderSize: 9
-  growthSpeed: 0.5
-  shrinkSpeed: 0.2
+  DelayBeforeDestroy: 2
+  minSize: 0.1
+  maxSize: 0.5
+  growthSpeed: 0.1
 --- !u!1001 &1587912625103925178
 PrefabInstance:
   m_ObjectHideFlags: 0

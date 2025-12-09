@@ -3,6 +3,10 @@ using System;
 
 public class FireBall : MagicBall
 {
+    protected override void Update()
+    {
+        Grow();
+    }
     protected override void Start()
     {
         base.Start();

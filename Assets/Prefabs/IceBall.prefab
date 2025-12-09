@@ -39538,17 +39538,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 3848484371876456859}
-  Speed: 30
-  DelayBeforeDestroy: 2.5
-  minSize: 1
-  maxSize: 3
-  minColliderSize: 1
-  maxColliderSize: 9
-  growthSpeed: 0.5
-  shrinkSpeed: 0.2
+  Speed: 12.2
+  DelayBeforeDestroy: 3
+  minSize: 0
+  maxSize: 2
+  growthSpeed: 1
   iceEffectPrefab: {fileID: 3522604301258223729, guid: 774f32966821fd945a6b58c7e834e592, type: 3}
   yThreshold: 1
-  effectScaleTime: 0.5
+  effectScaleTime: 0
 --- !u!1 &7316551390788216025
 GameObject:
   m_ObjectHideFlags: 0

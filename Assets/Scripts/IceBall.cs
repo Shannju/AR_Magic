@@ -1,21 +1,20 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class IceBall : MagicBall
 {
     [Header("IceBall Settings")]
-    [SerializeField] private GameObject iceEffectPrefab;  // ±ù±¬Õ¨ÌØĞ§ Prefab
-    [SerializeField] private float yThreshold =1f;     // ´¥µØ¸ß¶ÈãĞÖµ
-    [SerializeField] private float effectScaleTime = 0.5f; // ·Å´óµ½×î´ó±¶ÊıËùĞèÊ±¼ä
+    [SerializeField] private GameObject iceEffectPrefab;  // å†°çˆ†ç‚¸ç‰¹æ•ˆ Prefab
+    [SerializeField] private float yThreshold = 1f;       // è§¦åœ°é«˜åº¦é˜ˆå€¼
+    [SerializeField] private float effectScaleTime = 1f;  // ç‰¹æ•ˆæ’­æ”¾å¤§è‡´æ—¶é—´ï¼Œç”¨æ¥æ§åˆ¶ç­‰å¾…
 
-    private Transform iceMeshTransform;   // ±ùÇò×ÔÉí Mesh
-    private Collider iceCollider;         // ±ùÇò×ÔÉí Collider
-    private bool hasPlayedEffect = false; // ·ÀÖ¹ÖØ¸´´¥·¢
+    private Transform iceMeshTransform;
+    private Collider iceCollider;
+    private bool hasPlayedEffect = false; // é˜²æ­¢é‡å¤è§¦å‘
 
     protected override void Start()
     {
         base.Start();
-        // ×Ô¼ºÔÙ»º´æÒ»·İÒıÓÃ£¬ºÍ»ùÀàµÄ±£³ÖÒ»ÖÂÃüÃû
         iceMeshTransform = transform.Find("Mesh");
         iceCollider = GetComponent<Collider>();
     }
@@ -24,31 +23,45 @@ public class IceBall : MagicBall
     {
         Debug.Log($"[IceBall Collision] {gameObject.name} hit: {collision.collider.name}, Tag = {collision.collider.tag}");
 
+        // å·²ç»æ’­è¿‡ç‰¹æ•ˆ / å¤„ç†è¿‡ï¼Œä¸å†ç†ä¼šåç»­ç¢°æ’
+        if (hasPlayedEffect)
+            return;
 
-        // ºöÂÔÄ§ÕÈ
+        // å¿½ç•¥é­”æ–
         if (collision.collider.CompareTag("Wand"))
             return;
 
-        Vector3 contactPoint = collision.GetContact(0).point;
-
-        if (collision.collider.name == "DestructibleMeshSegment")
+        // ä¸æ˜¯ DestructibleMeshSegment â†’ ç›´æ¥äº¤ç»™åŸºç±»å¤„ç†
+        if (collision.collider.name != "DestructibleMeshSegment")
         {
-            //Debug.Log("±ùÇòĞ§¹û111");
-            // ´¥µØµãµÍÓÚãĞÖµ£ºÖ»·Å±ùÌØĞ§£¬²»ÆÆ»µ DestructibleMeshSegment
-            if (contactPoint.y < yThreshold)
-            {
-                //Debug.Log("±ùÇòĞ§¹û");
-                hasPlayedEffect = true;
-                StopMoving();                        // Í£Ö¹¸ÕÌåÔË¶¯£¨»ùÀà·½·¨£©
-                PlayIceEffect(contactPoint);         // µ÷ÓÃÌØĞ§Âß¼­
-                return;                              // ²»µ÷ÓÃ base.OnCollisionEnter ¡ú ²»ÆÆ»µ mesh
-            }
-
-            // ÆäËüÇé¿ö×ß»ùÀàÄ¬ÈÏÂß¼­£¨ÆÆ»µ DestructibleMeshSegment£©
-            // ÆäËüÇé¿ö×ß»ùÀàÄ¬ÈÏÂß¼­£¨ÆÆ»µ DestructibleMeshSegment£©
             base.OnCollisionEnter(collision);
+            return;
         }
 
+        // æ˜¯ DestructibleMeshSegmentï¼Œè®¡ç®—æ¥è§¦ç‚¹
+        Vector3 contactPoint = collision.GetContact(0).point;
+
+        // âœ… æƒ…å†µä¸€ï¼šä½äºé˜ˆå€¼ï¼Œåªæ”¾åœ°é¢å†°ç‰¹æ•ˆï¼Œä¸ç ´å mesh
+        if (contactPoint.y < yThreshold)
+        {
+            hasPlayedEffect = true;
+
+            // åœæ­¢ç‰©ç†è¿åŠ¨
+            StopMoving();
+
+            // ç«‹åˆ»ç¦ç”¨ç¢°æ’ï¼Œé¿å…åç»­å¤šæ¬¡ OnCollisionEnter
+            if (iceCollider != null)
+                iceCollider.enabled = false;
+
+            // æ’­æ”¾å†°ç‰¹æ•ˆï¼ˆåç¨‹ï¼‰
+            PlayIceEffect(contactPoint);
+
+            // ä¸å†è°ƒç”¨åŸºç±» â†’ ä¸èµ°ç ´åé€»è¾‘
+            return;
+        }
+
+        // âœ… æƒ…å†µäºŒï¼šé«˜äºé˜ˆå€¼ï¼ŒæŒ‰åŸæœ¬ MagicBall é€»è¾‘å¤„ç†ï¼ˆæ¯”å¦‚ç ´åï¼‰
+        base.OnCollisionEnter(collision);
     }
 
     private void PlayIceEffect(Vector3 spawnPosition)
@@ -58,17 +71,18 @@ public class IceBall : MagicBall
 
     private IEnumerator PlayIceEffectRoutine(Vector3 spawnPosition)
     {
-        // °Ñ±ùÇòÒÆ¶¯µ½´¥·¢Î»ÖÃ
+        // æŠŠå†°çƒç§»åŠ¨åˆ°è§¦å‘ä½ç½®
         transform.position = spawnPosition;
 
-        // 1. ±ùÇòÒşĞÎ + ½ûÓÃ×ÔÉíÅö×²
+        // 1. å†°çƒéšå½¢
         if (iceMeshTransform != null)
             iceMeshTransform.gameObject.SetActive(false);
 
+        // ç¡®ä¿ç¢°æ’å™¨å…³é—­ï¼ˆåŒä¿é™©ï¼‰
         if (iceCollider != null)
             iceCollider.enabled = false;
 
-        // 2. ´´½¨±ùÌØĞ§ prefab
+        // 2. åˆ›å»ºå†°ç‰¹æ•ˆ prefab
         GameObject effectInstance = null;
         if (iceEffectPrefab != null)
         {
@@ -76,37 +90,21 @@ public class IceBall : MagicBall
         }
         else
         {
-            Debug.LogWarning("[IceBall] iceEffectPrefab Î´Ö¸¶¨£¬ÎŞ·¨²¥·Å±ùÌØĞ§");
+            Debug.LogWarning("[IceBall] iceEffectPrefab æœªæŒ‡å®šï¼Œæ— æ³•æ’­æ”¾å†°ç‰¹æ•ˆ");
             yield break;
         }
 
-        // 3. Ëõ·Å¶¯»­£º´Óµ±Ç°´óĞ¡·Å´óµ½ maxSize
-        Vector3 startScale = effectInstance.transform.localScale;
-        Vector3 targetScale = Vector3.one * maxSize;
-
-        float elapsed = 0f;
-        while (elapsed < effectScaleTime)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / effectScaleTime);
-
-            effectInstance.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
-            yield return null;
-        }
-
-        // ½áÊøÊ±¶ÔÆë×î´ó´óĞ¡
-        effectInstance.transform.localScale = targetScale;
-
-        // 4. ²ÎÕÕ»ùÀàÂß¼­£ºµÈ´ıÊ£ÓàÊ±¼äÔÙÏú»Ù
+        // 3. ç­‰å¾…ä¸€æ®µæ—¶é—´ï¼Œè®©ç‰¹æ•ˆæ’­æ”¾å®Œï¼ˆè¿™é‡Œç”¨ DelayBeforeDestroy å’Œ effectScaleTime é…åˆï¼‰
         float remain = Mathf.Max(0f, DelayBeforeDestroy - effectScaleTime);
         if (remain > 0f)
             yield return new WaitForSeconds(remain);
 
-        // 5. Çå³ıÌØĞ§²¢Ïú»Ù±ùÇò±¾Ìå
-        Destroy(effectInstance);
+        // 4. æ¸…é™¤ç‰¹æ•ˆå¹¶é”€æ¯å†°çƒæœ¬ä½“
+        if (effectInstance != null)
+            Destroy(effectInstance);
+
         Destroy(gameObject);
 
         Debug.Log("[IceBall] Ground ice effect finished, self-destruct.");
     }
-
 }

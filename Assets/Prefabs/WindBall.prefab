@@ -100,10 +100,7 @@ MonoBehaviour:
   DelayBeforeDestroy: 0
   minSize: 1
   maxSize: 3
-  minColliderSize: 1
-  maxColliderSize: 9
   growthSpeed: 0.5
-  shrinkSpeed: 0.2
 --- !u!1 &6328644372665670850
 GameObject:
   m_ObjectHideFlags: 0
