@@ -103,6 +103,7 @@ public abstract class MagicBall : MonoBehaviour
     // ------------------------------
     public void StartMoving()
     {
+        Rb.useGravity = true;
         isMoving = true;
         Rb.linearVelocity = transform.up * Speed;
     }

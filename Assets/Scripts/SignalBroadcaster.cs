@@ -20,7 +20,7 @@ public class SignalBroadcaster : MonoBehaviour
     }
 
     // ¹ã²¥ÂäµØÐÅºÅ
-    public void BroadcastLandSignal()
+    public void BroadcastHandSignal()
     {
         OnLandSignal?.Invoke();
     }

@@ -39507,7 +39507,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6293203003390812209}
   serializedVersion: 4
-  m_Mass: 0.1
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -39539,7 +39539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 3848484371876456859}
-  Speed: 12.2
+  Speed: 6
   DelayBeforeDestroy: 2
   hitEffectPrefab: {fileID: 3522604301258223729, guid: 774f32966821fd945a6b58c7e834e592, type: 3}
   effectScaleTime: 0
@@ -59421,7 +59421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2114089421622561578, guid: 14dfd592f3ca9a3408b3d35c004ea0ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2114089421622561578, guid: 14dfd592f3ca9a3408b3d35c004ea0ec, type: 3}
       propertyPath: m_LocalPosition.z

@@ -14,4 +14,9 @@ public class WindBall : MagicBall
         }
 
     }
+    public void StartMoving()
+    {
+        isMoving = true;
+        Rb.linearVelocity = transform.up * Speed;
+    }
 }
