@@ -35,7 +35,7 @@ public class HandMagic : MonoBehaviour
     [Tooltip("手部移动速度阈值（米/秒）")]
     public float handSpeedThreshold = 2.0f;
     [Tooltip("速度检测时间窗口（秒）")]
-    public float speedDetectionWindow = 0.5f;
+    public float speedDetectionWindow = 0.01f;
     [Tooltip("手指弯曲闭合的阈值（0-1，1表示完全闭合）")]
     [Range(0f, 1f)]
     public float fingerCurlThreshold = 0.7f;
@@ -379,6 +379,8 @@ public class HandMagic : MonoBehaviour
             MagicBall magicBallScript = currentBall.GetComponent<MagicBall>();
             Debug.Log($"魔法球发射，速度：{GetAverageSpeed():F2} 米/秒");
             magicBallScript.StartMoving();
+            currentBall= null;
+
         }
     }
 

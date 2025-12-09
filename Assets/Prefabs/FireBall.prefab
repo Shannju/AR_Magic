@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 5838644996129815052}
-  Speed: 16
+  Speed: 9
   DelayBeforeDestroy: 2
   hitEffectPrefab: {fileID: 8372699662402549842, guid: fefbb6a1388c40f4cbd9230f1b049dc3, type: 3}
   effectScaleTime: 1
@@ -312,6 +312,10 @@ PrefabInstance:
     - target: {fileID: 2667270384273994053, guid: 8c51410e4f579f34f84ac8580fc8ece9, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792886660485448812, guid: 8c51410e4f579f34f84ac8580fc8ece9, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5099431166652583641, guid: 8c51410e4f579f34f84ac8580fc8ece9, type: 3}
       propertyPath: m_Name

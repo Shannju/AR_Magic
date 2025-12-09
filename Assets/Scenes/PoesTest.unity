@@ -24482,7 +24482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &635368464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27743,7 +27743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5613aa5f224248b2cef5814c0a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poseA: {fileID: 11400000, guid: 8464462f18aac014fbd5f992b972ad95, type: 2}
+  _poseA: {fileID: 11400000, guid: 860d1ca231389c24691887b741dae5e2, type: 2}
   _poseB: {fileID: 198302901}
   _source: 0
 --- !u!4 &1182940193
@@ -28481,7 +28481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5613aa5f224248b2cef5814c0a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poseA: {fileID: 11400000, guid: 1382262e7a0f9854ba97366c76cc7667, type: 2}
+  _poseA: {fileID: 11400000, guid: 0dc38608981f3d6468f835101059f46f, type: 2}
   _poseB: {fileID: 198302901}
   _source: 0
 --- !u!4 &1264084236
@@ -62348,7 +62348,7 @@ MonoBehaviour:
   RightHand: {fileID: 324773093}
   RightHandSkeleton: {fileID: 776675010}
   oppositionThreshold: 0.8
-  XRHand_Palm: {fileID: 0}
+  OpenXRRightHand: {fileID: 0}
   Firepoint: {fileID: 343498302}
   FireBall: {fileID: 4037405495158977300, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
   Fire: {fileID: 1778734068}
