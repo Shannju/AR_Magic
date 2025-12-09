@@ -17,7 +17,7 @@ public class HandMagic : MonoBehaviour
     [Range(0f, 1f)]
     public float oppositionThreshold = 0.8f;
 
-    public GameObject XRHand_Palm;
+    //public GameObject XRHand_Palm;
     public GameObject OpenXRRightHand;
 
 
@@ -285,8 +285,15 @@ public class HandMagic : MonoBehaviour
         // 魔法球发射
         if (OpenXRRightHand.transform.position.y > 1f)
         {
+
+
             if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
             {
+                Debug.Log("移到根目录");
+                currentBall.transform.SetParent(null);
+                currentBall.transform.SetPositionAndRotation(Firepoint.transform.position, Firepoint.transform.rotation);
+
+
                 FireBallProjectile();
                 this.lastBallTime = Time.time;
             }
@@ -352,6 +359,8 @@ public class HandMagic : MonoBehaviour
 
             // 2. 将新生成的魔法球设置为当前物体的子物体
             currentBall.transform.SetParent(Firepoint.transform);
+            
+
             if (newBallInstance != null)
             {
                 // 3. 【关键】触发 OnBallCast 事件，将新生成的实例传递给监听者
