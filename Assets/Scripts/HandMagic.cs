@@ -126,6 +126,20 @@ public class HandMagic : MonoBehaviour
     }
 
     /// <summary>
+    /// 在LateUpdate中同步魔法球位置，确保在身体姿势检测更新之后才更新
+    /// 这样可以避免魔法球位置偏移和旋转问题
+    /// </summary>
+    void LateUpdate()
+    {
+        // 如果魔法球存在且还未发射，同步其位置和旋转到Firepoint
+        if (currentBall != null && Firepoint != null)
+        {
+            // 使用世界空间位置和旋转，避免受到父物体Transform变化的影响
+            currentBall.transform.SetPositionAndRotation(Firepoint.position, Firepoint.rotation);
+        }
+    }
+
+    /// <summary>
     /// 检测手指手势（使用Meta ISDK Opposition特征）
     /// </summary>
     private void CheckFingerGesture()
@@ -319,15 +333,18 @@ public class HandMagic : MonoBehaviour
         Debug.Log("魔法球发射准备");
 
         // 魔法球发射
-        if (OpenXRRightHand.transform.position.y > 1f)
+        // 【修复】添加空值检查，避免在身体姿势检测更新时访问无效的Transform
+        if (OpenXRRightHand != null && OpenXRRightHand.transform != null && OpenXRRightHand.transform.position.y > 1f)
         {
             if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
             {
                 // 检查魔法球是否存在
                 if (currentBall != null)
                 {
-                    currentBall.transform.SetParent(null);
-                    currentBall.transform.SetPositionAndRotation(Firepoint.transform.position, Firepoint.transform.rotation);
+                    // 【修复】魔法球已经是世界空间坐标，不需要再设置父物体
+                    // currentBall.transform.SetParent(null);
+                    // 使用Firepoint的当前世界空间位置和旋转
+                    currentBall.transform.SetPositionAndRotation(Firepoint.position, Firepoint.rotation);
                     FireBallProjectile();
                     this.lastBallTime = Time.time;
                 }
@@ -386,15 +403,18 @@ public class HandMagic : MonoBehaviour
 
         if (ballPrefab != null && Firepoint != null)
         {
-            // 1. 实例化法球并获取 GameObject 引用
+            // 1. 实例化法球并获取 GameObject 引用（使用世界空间位置）
             currentBall = Instantiate(ballPrefab, Firepoint.position, Firepoint.rotation);
 
             // 2. 尝试获取其基类脚本 MagicBall 的引用
             MagicBall newBallInstance = currentBall.GetComponent<MagicBall>();
 
-            // 2. 将新生成的魔法球设置为当前物体的子物体
-            currentBall.transform.SetParent(Firepoint.transform);
+            // 【修复】不再将魔法球设置为Firepoint的子物体，避免身体姿势检测时位置偏移
+            // 改为在LateUpdate中手动同步位置，确保在身体姿势检测更新之后才更新
+            // currentBall.transform.SetParent(Firepoint.transform);
             
+            // 确保魔法球不在任何父物体下，使用世界空间坐标
+            currentBall.transform.SetParent(null);
 
             if (newBallInstance != null)
             {
