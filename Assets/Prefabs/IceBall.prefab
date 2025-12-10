@@ -39546,6 +39546,8 @@ MonoBehaviour:
   minSize: 0
   maxSize: 2
   growthSpeed: 1
+  syncVFXScaleOnGrowth: 1
+  vfxScaleMultiplier: 1
   yThreshold: 1
 --- !u!1 &7316551390788216025
 GameObject:

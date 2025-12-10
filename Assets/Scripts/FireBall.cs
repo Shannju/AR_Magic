@@ -3,6 +3,11 @@ using System;
 
 public class FireBall : MagicBall
 {
+    [Header("Explosion Settings")]
+    [Tooltip("火球触发爆炸特效的最小大小阈值（scale值）")]
+    [Range(0.1f, 3f)]
+    public float explosionSizeThreshold = 0.5f;
+
     protected override void Start()
     {
         base.Start();
@@ -29,7 +34,7 @@ public class FireBall : MagicBall
     }
 
     /// <summary>
-    /// 🔥 FireBall 只有当 Scale > 0.1 时才允许播放特效
+    /// 🔥 FireBall 只有当 Scale > explosionSizeThreshold 时才允许播放爆炸特效
     /// 我们通过 override 来控制是否调用基类的特效逻辑。
     /// </summary>
     protected override void OnCollisionEnter(Collision collision)
@@ -40,8 +45,8 @@ public class FireBall : MagicBall
         Vector3 contactPoint = collision.GetContact(0).point;
 
 
-        // ✅ 情况一：低于阈值 —— 使用“地面冰特效逻辑”（不走默认 DelayEventAndDestroySelf）
-        if (currentScale > 0.5 && collision.collider.name == "DestructibleMeshSegment")
+        // ✅ 情况一：达到阈值 —— 触发爆炸特效（不走默认 DelayEventAndDestroySelf）
+        if (currentScale > explosionSizeThreshold && collision.collider.name == "DestructibleMeshSegment")
         {
             // 从手上脱离
             transform.SetParent(null);

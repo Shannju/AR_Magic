@@ -22,8 +22,8 @@ public abstract class MagicBall : MonoBehaviour
     [Tooltip("碰撞发生后到触发事件并销毁之间等待的时间。")]
     public float DelayBeforeDestroy = 2.5f;
 
-    private bool isCollisionHandled = false;
-    private GameObject collidedTarget = null;
+    protected bool isCollisionHandled = false;
+    protected GameObject collidedTarget = null;
     protected bool isMoving = false;
 
     // 事件委托
@@ -39,10 +39,24 @@ public abstract class MagicBall : MonoBehaviour
     public float maxSize = 2f;
     public float growthSpeed = 0.5f;
 
+    [Header("VFX Scaling")]
+    [Tooltip("是否在火球增长时同步缩放子级粒子特效")]
+    public bool syncVFXScaleOnGrowth = true;
+    [Tooltip("特效缩放倍数（相对于火球大小，1.0表示与火球同步）")]
+    [Range(0.1f, 3f)]
+    public float vfxScaleMultiplier = 1f;
+
     protected bool isGrowing = false;
     protected bool hasPlayedEffect = false;    // 防止重复播特效
     protected Transform meshTransform;         // 假设子物体名为 "Mesh"
     protected Collider ballCollider;
+    
+    // 粒子特效相关缓存
+    private ParticleSystem[] cachedParticleSystems;
+    private float[] originalStartSizeMultipliers;  // 记录每个粒子系统的原始startSizeMultiplier
+    private float initialBallScale = 1f;     // 记录火球初始大小
+    private float lastScale = 1f;            // 记录上一次的缩放值
+    private bool vfxComponentsCached = false;
 
     protected virtual void Start()
     {
@@ -51,6 +65,16 @@ public abstract class MagicBall : MonoBehaviour
         // 通用缓存：Mesh + Collider
         meshTransform = transform.Find("Mesh");
         ballCollider = GetComponent<Collider>();
+        
+        // 记录初始火球大小和当前缩放值
+        initialBallScale = transform.localScale.x;
+        lastScale = initialBallScale;
+        
+        // 缓存子级粒子特效组件
+        if (syncVFXScaleOnGrowth)
+        {
+            CacheParticleSystems();
+        }
     }
 
     // ------------------------------
@@ -124,6 +148,14 @@ public abstract class MagicBall : MonoBehaviour
     public void BeginGrowth()
     {
         isGrowing = true;
+        
+        // 如果还没有缓存粒子系统，现在缓存（防止Start时火球大小已经改变）
+        if (syncVFXScaleOnGrowth && !vfxComponentsCached)
+        {
+            initialBallScale = transform.localScale.x;
+            lastScale = initialBallScale;
+            CacheParticleSystems();
+        }
     }
 
     public void StopGrowth()
@@ -136,9 +168,68 @@ public abstract class MagicBall : MonoBehaviour
         Grow();
     }
 
+    /// <summary>
+    /// 缓存子级的所有粒子特效组件并保存原始startSizeMultiplier值
+    /// </summary>
+    private void CacheParticleSystems()
+    {
+        if (!syncVFXScaleOnGrowth) return;
+        
+        // 查找所有子级的ParticleSystem（包括自身）
+        cachedParticleSystems = GetComponentsInChildren<ParticleSystem>();
+        
+        if (cachedParticleSystems != null && cachedParticleSystems.Length > 0)
+        {
+            // 保存每个粒子系统的原始startSizeMultiplier值
+            originalStartSizeMultipliers = new float[cachedParticleSystems.Length];
+            for (int i = 0; i < cachedParticleSystems.Length; i++)
+            {
+                if (cachedParticleSystems[i] != null)
+                {
+                    var main = cachedParticleSystems[i].main;
+                    originalStartSizeMultipliers[i] = main.startSizeMultiplier;
+                }
+            }
+            
+            vfxComponentsCached = true;
+            Debug.Log($"[MagicBall] 已缓存 {cachedParticleSystems.Length} 个粒子特效组件");
+        }
+    }
+
+    /// <summary>
+    /// 根据火球当前大小更新粒子特效大小（仅在增长时调用）
+    /// </summary>
+    private void UpdateParticleSystemScale(float currentBallScale)
+    {
+        if (!syncVFXScaleOnGrowth || !vfxComponentsCached || cachedParticleSystems == null) return;
+        
+        // 防止除以零
+        if (initialBallScale <= 0f) return;
+        
+        // 计算相对于初始大小的缩放比例
+        float scaleRatio = currentBallScale / initialBallScale;
+        float finalScale = scaleRatio * vfxScaleMultiplier;
+        
+        // 更新所有粒子系统的大小
+        for (int i = 0; i < cachedParticleSystems.Length; i++)
+        {
+            if (cachedParticleSystems[i] != null && originalStartSizeMultipliers != null && i < originalStartSizeMultipliers.Length)
+            {
+                var main = cachedParticleSystems[i].main;
+                // 使用原始startSizeMultiplier乘以缩放比例
+                float newMultiplier = originalStartSizeMultipliers[i] * finalScale;
+                main.startSizeMultiplier = newMultiplier;
+                
+                Debug.Log($"[MagicBall] 更新粒子特效 {i}: 原始={originalStartSizeMultipliers[i]:F2}, 缩放比例={scaleRatio:F2}, 最终={newMultiplier:F2}");
+            }
+        }
+    }
+
     protected void Grow()
     {
         if (!isGrowing) return;
+
+        float previousScale = transform.localScale.x;
 
         transform.localScale = Vector3.Lerp(
             transform.localScale,
@@ -146,9 +237,24 @@ public abstract class MagicBall : MonoBehaviour
             growthSpeed * Time.deltaTime
         );
 
+        float currentScale = transform.localScale.x;
+        
+        // 只在火球增长时（当前缩放大于上一次缩放）同步更新粒子特效大小
+        if (currentScale > lastScale)
+        {
+            UpdateParticleSystemScale(currentScale);
+            lastScale = currentScale;
+        }
+
         if (transform.localScale.x >= maxSize * 0.98f)
         {
             transform.localScale = Vector3.one * maxSize;
+            // 确保在达到最大大小时也更新一次
+            if (maxSize > lastScale)
+            {
+                UpdateParticleSystemScale(maxSize);
+            }
+            lastScale = maxSize;
             isGrowing = false;
             Debug.Log("MagicBall reached max size.");
         }

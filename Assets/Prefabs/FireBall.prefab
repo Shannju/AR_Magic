@@ -141,7 +141,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.9
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5838644996129815052
 Rigidbody:
@@ -188,8 +188,11 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 8372699662402549842, guid: fefbb6a1388c40f4cbd9230f1b049dc3, type: 3}
   effectScaleTime: 1
   minSize: 0.1
-  maxSize: 0.9
+  maxSize: 0.25
   growthSpeed: 0.2
+  syncVFXScaleOnGrowth: 1
+  vfxScaleMultiplier: 1
+  explosionSizeThreshold: 0.2
 --- !u!1001 &4903428434897416135
 PrefabInstance:
   m_ObjectHideFlags: 0

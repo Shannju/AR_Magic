@@ -7850,6 +7850,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2333017339777243940, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: m_Radius
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274512454408916831, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: maxSize
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274512454408916831, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: growthSpeed
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 4037405495158977300, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
       propertyPath: m_Name
       value: FireBall
@@ -7857,6 +7869,18 @@ PrefabInstance:
     - target: {fileID: 4037405495158977300, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6155454768868472357, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6155454768868472357, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6155454768868472357, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6155454768868472357, guid: 649831979c909a54d99ea8dc920f2f3f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14732,6 +14756,11 @@ Transform:
   - {fileID: 2057311024}
   m_Father: {fileID: 385311815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2050202754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1113723235272794270, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}
+  m_PrefabInstance: {fileID: 4053593422276635931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2057311023
 GameObject:
   m_ObjectHideFlags: 0
@@ -15970,8 +15999,8 @@ MonoBehaviour:
   fingerCurlThreshold: 0.7
   fireballCooldown: 1
   fingerToPalmDistanceThreshold: 0.02
-  PalmPosition: {fileID: 0}
-  FingerTipPosition: {fileID: 0}
+  PalmPosition: {fileID: 243292452}
+  FingerTipPosition: {fileID: 2050202754}
 --- !u!1001 &4113261204177899808
 PrefabInstance:
   m_ObjectHideFlags: 0
