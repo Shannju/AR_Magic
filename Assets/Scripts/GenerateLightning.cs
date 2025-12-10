@@ -22,7 +22,10 @@ public class GenerateLightning : MonoBehaviour
             return;
         }
 
-        Instantiate(lightningPrefab, transform.position, Quaternion.identity);
-        Debug.Log($"[GenerateLightning] 闪电已生成在自身位置：{transform.position}");
+        // ?生成位置 = 自身位置 + (1, 0, 0)
+        Vector3 spawnPosition = transform.position + new Vector3(1f, 0f, 0f);
+
+        Instantiate(lightningPrefab, spawnPosition, Quaternion.identity);
+        Debug.Log($"[GenerateLightning] 闪电已生成在：{spawnPosition}");
     }
 }
