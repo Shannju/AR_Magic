@@ -36,6 +36,18 @@ public class DestructibleGlobalMeshManager : MonoBehaviour
         newBall.OnMagicBallCollision += DestroyMeshSegment;
     }
 
+    /// <summary>
+    /// 为闪电设置碰撞事件监听，使其能够破坏场景
+    /// </summary>
+    public void SetupLightningListener(LightningBreakEffect lightningEffect)
+    {
+        if (lightningEffect != null)
+        {
+            lightningEffect.OnMagicBallCollision += DestroyMeshSegment;
+            Debug.Log("[DestructibleGlobalMeshManager] 已为闪电设置场景破坏事件监听");
+        }
+    }
+
     // This method sets up the components for the destructible mesh
     public void SetupDestructibleComponents(DestructibleMeshComponent component)
     {
