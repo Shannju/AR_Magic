@@ -1403,6 +1403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 241710777}
+  - component: {fileID: 241710778}
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
@@ -1425,6 +1426,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 243292452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+--- !u!114 &241710778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241710776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c177152ecb0d2dc418aa5a69c1255eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightningPrefab: {fileID: 7705111798424012198, guid: 443a3aff55fddcf44b6b4d75370673d7, type: 3}
 --- !u!4 &243292452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5705840243844199569, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}
@@ -15202,7 +15216,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 17719386}
         m_TargetAssemblyTypeName: SignalBroadcaster, Assembly-CSharp
-        m_MethodName: BroadcastLandSignal
+        m_MethodName: BroadcastHandSignal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

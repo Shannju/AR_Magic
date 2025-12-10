@@ -14,6 +14,9 @@ public class WindBall : MagicBall
         }
 
     }
+
+
+
     public override void StartMoving()
     {
         Rb.useGravity = false;  // 风球没有重力

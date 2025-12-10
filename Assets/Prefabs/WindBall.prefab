@@ -132,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &727708186328647297
 Transform:
   m_ObjectHideFlags: 0
@@ -217,6 +217,8 @@ MonoBehaviour:
   minSize: 1
   maxSize: 3
   growthSpeed: 0.5
+  syncVFXScaleOnGrowth: 1
+  vfxScaleMultiplier: 1
 --- !u!1 &6328644372665670850
 GameObject:
   m_ObjectHideFlags: 0
