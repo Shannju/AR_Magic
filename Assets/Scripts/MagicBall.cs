@@ -101,7 +101,7 @@ public abstract class MagicBall : MonoBehaviour
     // ------------------------------
     //         运动控制
     // ------------------------------
-    public void StartMoving()
+    public virtual void StartMoving()
     {
         Rb.useGravity = true;
         isMoving = true;

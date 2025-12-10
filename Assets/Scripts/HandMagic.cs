@@ -41,6 +41,11 @@ public class HandMagic : MonoBehaviour
     public float fingerCurlThreshold = 0.7f;
     [Tooltip("FireBall生成冷却时间（秒）")]
     public float fireballCooldown = 0.3f;
+    [Tooltip("中指指尖与手掌的接触距离阈值（米）")]
+    [Range(0f, 0.1f)]
+    public float fingerToPalmDistanceThreshold = 0.02f;
+    public Transform PalmPosition;
+    public Transform FingerTipPosition;
 
     // 手势检测相关变量
     private bool isFingersTouching = false;
@@ -85,13 +90,25 @@ public class HandMagic : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 检查手指手势
-        CheckFingerGesture();
-
-        // 检查状态解除条件
+        // 先检查状态解除条件（中指指尖接触手掌时取消魔法）
         CheckStateDeactivation();
 
-        CheckHandSpeedAndShootBall(MagicType.Fire);
+        // 检查手指手势（只有在中指指尖未接触手掌时才检测）
+        CheckFingerGesture();
+
+        // 根据当前激活的魔法类型检测发射
+        if (fireStateActive)
+        {
+            CheckHandSpeedAndShootBall(MagicType.Fire);
+        }
+        else if (iceStateActive)
+        {
+            CheckHandSpeedAndShootBall(MagicType.Ice);
+        }
+        else if (windStateActive)
+        {
+            CheckHandSpeedAndShootBall(MagicType.Wind);
+        }
 
         //// 检测手部移动速度并生成魔法球
         //if (fireStateActive)
@@ -136,6 +153,15 @@ public class HandMagic : MonoBehaviour
     /// </summary>
     private void CheckGestureOpposition(float oppositionValue, ref bool isTouching, ref bool wasTouching, MagicType magicType)
     {
+        // 如果中指指尖接触到手掌，不检测手势，防止重新生成魔法球
+        if (AreAllFingersClosed())
+        {
+            // 重置状态，防止接触后立即触发手势
+            isTouching = false;
+            wasTouching = false;
+            return;
+        }
+
         // Opposition值范围0-1，1表示完全接触
         // 使用阈值判断是否达到接触状态
         isTouching = oppositionValue >= oppositionThreshold;
@@ -204,7 +230,7 @@ public class HandMagic : MonoBehaviour
     }
 
     /// <summary>
-    /// 检查状态解除条件
+    /// 检查状态解除条件（中指指尖接触手掌时取消魔法）
     /// </summary>
     private void CheckStateDeactivation()
     {
@@ -212,6 +238,21 @@ public class HandMagic : MonoBehaviour
 
         if (AreAllFingersClosed())
         {
+            // 删除当前的魔法球（如果存在）
+            if (currentBall != null)
+            {
+                Destroy(currentBall);
+                currentBall = null;
+            }
+            
+            // 重置手势状态变量，防止接触后立即重新生成魔法球
+            isFingersTouching = false;
+            wasFingersTouching = false;
+            isIceFingersTouching = false;
+            wasIceFingersTouching = false;
+            isWindFingersTouching = false;
+            wasWindFingersTouching = false;
+            
             if (fireStateActive) SetMagicState(MagicType.Fire, false);
             if (iceStateActive) SetMagicState(MagicType.Ice, false);
             if (windStateActive) SetMagicState(MagicType.Wind, false);
@@ -219,30 +260,25 @@ public class HandMagic : MonoBehaviour
     }
 
     /// <summary>
-    /// 检查所有手指（除大拇指）是否闭合（使用Meta ISDK API）
+    /// 检查中指指尖是否接触到手掌（用于取消魔法）
     /// </summary>
     private bool AreAllFingersClosed()
     {
+        // 检查必要的Transform引用
+        if (PalmPosition == null || FingerTipPosition == null) return false;
         if (RightHand == null || !RightHand.IsTracked) return false;
 
-        // 检测除大拇指外的所有手指：食指、中指、无名指、小指
-        OVRHand.HandFinger[] fingersToCheck = {
-            OVRHand.HandFinger.Index,
-            OVRHand.HandFinger.Middle,
-            OVRHand.HandFinger.Ring,
-            OVRHand.HandFinger.Pinky
-        };
-
-        foreach (OVRHand.HandFinger finger in fingersToCheck)
+        // 计算中指指尖与手掌之间的距离
+        float distance = Vector3.Distance(FingerTipPosition.position, PalmPosition.position);
+        
+        // 调试信息：显示距离（仅在接近阈值时输出，避免日志过多）
+        if (distance <= fingerToPalmDistanceThreshold * 1.5f)
         {
-            // 使用GetFingerPinchStrength来检测手指弯曲程度
-            if (!IsFingerCurlClosed(finger))
-            {
-                return false;
-            }
+            Debug.Log($"[取消魔法检测] 中指指尖到手掌距离: {distance * 1000:F2}mm, 阈值: {fingerToPalmDistanceThreshold * 1000:F2}mm, 是否接触: {distance <= fingerToPalmDistanceThreshold}");
         }
-
-        return true;
+        
+        // 如果距离小于等于阈值，认为中指指尖接触到手掌
+        return distance <= fingerToPalmDistanceThreshold;
     }
 
     /// <summary>
@@ -287,10 +323,14 @@ public class HandMagic : MonoBehaviour
         {
             if (GetAverageSpeed() > handSpeedThreshold && Time.time - this.lastBallTime >= fireballCooldown)
             {
-                currentBall.transform.SetParent(null);
-                currentBall.transform.SetPositionAndRotation(Firepoint.transform.position, Firepoint.transform.rotation);
-                FireBallProjectile();
-                this.lastBallTime = Time.time;
+                // 检查魔法球是否存在
+                if (currentBall != null)
+                {
+                    currentBall.transform.SetParent(null);
+                    currentBall.transform.SetPositionAndRotation(Firepoint.transform.position, Firepoint.transform.rotation);
+                    FireBallProjectile();
+                    this.lastBallTime = Time.time;
+                }
             }
         }
 

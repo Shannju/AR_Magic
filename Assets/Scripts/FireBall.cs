@@ -13,8 +13,12 @@ public class FireBall : MagicBall
 
     protected override void Update()
     {
-        base.Update();     // 保证父类 Update 在运行（处理 Grow()）
-        Grow();
+        // 只在 isGrowing 为 true 时才调用 Grow()
+        // 这样只有在收到 OnIncreaseSignal 信号后才会增长
+        if (isGrowing)
+        {
+            Grow();
+        }
     }
 
     // 收到增加信号后执行增长
@@ -37,7 +41,7 @@ public class FireBall : MagicBall
 
 
         // ✅ 情况一：低于阈值 —— 使用“地面冰特效逻辑”（不走默认 DelayEventAndDestroySelf）
-        if (currentScale > 0.1f && collision.collider.name == "DestructibleMeshSegment")
+        if (currentScale > 0.5 && collision.collider.name == "DestructibleMeshSegment")
         {
             // 从手上脱离
             transform.SetParent(null);

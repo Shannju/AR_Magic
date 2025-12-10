@@ -187,8 +187,8 @@ MonoBehaviour:
   DelayBeforeDestroy: 2
   hitEffectPrefab: {fileID: 8372699662402549842, guid: fefbb6a1388c40f4cbd9230f1b049dc3, type: 3}
   effectScaleTime: 1
-  minSize: 0.05
-  maxSize: 0.2
+  minSize: 0.1
+  maxSize: 0.9
   growthSpeed: 0.2
 --- !u!1001 &4903428434897416135
 PrefabInstance:

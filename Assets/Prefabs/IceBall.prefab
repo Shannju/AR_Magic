@@ -39539,8 +39539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 3848484371876456859}
-  Speed: 6
-  DelayBeforeDestroy: 2
+  Speed: 2
+  DelayBeforeDestroy: 1.5
   hitEffectPrefab: {fileID: 3522604301258223729, guid: 774f32966821fd945a6b58c7e834e592, type: 3}
   effectScaleTime: 0
   minSize: 0

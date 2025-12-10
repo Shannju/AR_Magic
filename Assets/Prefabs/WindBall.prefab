@@ -132,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &727708186328647297
 Transform:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 909743734446714962}
-  Speed: 2
+  Speed: 4
   DelayBeforeDestroy: 0
   hitEffectPrefab: {fileID: 0}
   effectScaleTime: 1

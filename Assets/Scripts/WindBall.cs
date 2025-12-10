@@ -4,7 +4,7 @@ public class WindBall : MagicBall
 {
     protected override void Start()
     {
-        base.Start(); // µ÷ÓÃ»ùÀàµÄ Start ·½·¨£¬ÉèÖÃËÙ¶ÈµÈ
+        base.Start(); // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ Start ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶Èµï¿½
     }
     protected override void Update()
     {
@@ -14,8 +14,9 @@ public class WindBall : MagicBall
         }
 
     }
-    public void StartMoving()
+    public override void StartMoving()
     {
+        Rb.useGravity = false;  // é£çƒæ²¡æœ‰é‡åŠ›
         isMoving = true;
         Rb.linearVelocity = transform.up * Speed;
     }

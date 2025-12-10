@@ -48,4 +48,12 @@ public class IceBall : MagicBall
         // ✅ 情况二：高于阈值 —— 按父类默认逻辑（延迟事件 + 自毁）
         base.OnCollisionEnter(collision);
     }
+
+    // 重写 StartMoving 方法，禁用重力
+    public override void StartMoving()
+    {
+        Rb.useGravity = false;
+        isMoving = true;
+        Rb.linearVelocity = transform.up * Speed;
+    }
 }
