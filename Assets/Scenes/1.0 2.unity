@@ -5692,7 +5692,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817253647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5763,7 +5763,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817253647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dfd1763ffd01d943bd2a6876dda0d65, type: 3}
   m_Name: 
@@ -12932,6 +12932,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8930105136389559837, guid: 6e8fe4e95644df942a2dc66a048805fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16008,7 +16012,7 @@ MonoBehaviour:
   Ice: {fileID: 6293203003390812209, guid: 1a13674a4e4b81a499c34bcd7c838cf2, type: 3}
   WindBall: {fileID: 3340900223703822119, guid: 31800abf4229d584b8dcebc4e6321db5, type: 3}
   Wind: {fileID: 3340900223703822119, guid: 31800abf4229d584b8dcebc4e6321db5, type: 3}
-  handSpeedThreshold: 1.3
+  handSpeedThreshold: 1.1
   speedDetectionWindow: 0.5
   fingerCurlThreshold: 0.7
   fireballCooldown: 1
