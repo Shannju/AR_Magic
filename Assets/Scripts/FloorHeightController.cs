@@ -14,7 +14,8 @@ public class FloorHeightController : MonoBehaviour
         if (floor != null)
         {
             Vector3 position = floor.position;
-            position.y = transform.position.y;
+            transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+
             floor.position = position;
             Debug.Log($"Floor高度已设置为: {transform.position.y}");
         }

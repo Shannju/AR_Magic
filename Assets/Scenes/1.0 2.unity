@@ -6767,7 +6767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5613aa5f224248b2cef5814c0a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poseA: {fileID: 11400000, guid: 0dc38608981f3d6468f835101059f46f, type: 2}
+  _poseA: {fileID: 11400000, guid: 1382262e7a0f9854ba97366c76cc7667, type: 2}
   _poseB: {fileID: 1169237525}
   _source: 0
 --- !u!4 &981422380
@@ -6802,7 +6802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &984092717
 Transform:
   m_ObjectHideFlags: 0
@@ -7345,6 +7345,18 @@ PrefabInstance:
     - target: {fileID: 5201637225824680224, guid: d211279b66f25334e984011a5ebfce5b, type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201637225824680237, guid: d211279b66f25334e984011a5ebfce5b, type: 3}
+      propertyPath: _maxPointsCount
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201637225824680237, guid: d211279b66f25334e984011a5ebfce5b, type: 3}
+      propertyPath: _pointsPerUnitX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201637225824680237, guid: d211279b66f25334e984011a5ebfce5b, type: 3}
+      propertyPath: _pointsPerUnitY
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5201637225824680237, guid: d211279b66f25334e984011a5ebfce5b, type: 3}
       propertyPath: _globalMeshMaterial
@@ -14094,7 +14106,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4053593422276635936}
         m_TargetAssemblyTypeName: FloorHeightController, Assembly-CSharp
         m_MethodName: SetFloorHeight
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
