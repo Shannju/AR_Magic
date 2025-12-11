@@ -52,7 +52,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6155454768868472357
 Transform:
   m_ObjectHideFlags: 0
@@ -192,7 +192,6 @@ MonoBehaviour:
   growthSpeed: 0.2
   syncVFXScaleOnGrowth: 1
   vfxScaleMultiplier: 1
-  explosionSizeThreshold: 0.2
 --- !u!1001 &4903428434897416135
 PrefabInstance:
   m_ObjectHideFlags: 0

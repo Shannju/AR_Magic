@@ -3,10 +3,6 @@ using System;
 
 public class FireBall : MagicBall
 {
-    [Header("Explosion Settings")]
-    [Tooltip("火球触发爆炸特效的最小大小阈值（scale值）")]
-    [Range(0.1f, 3f)]
-    public float explosionSizeThreshold = 0.2f;
 
     protected override void Start()
     {
@@ -46,13 +42,14 @@ public class FireBall : MagicBall
 
 
         // ✅ 情况一：达到阈值 —— 触发爆炸特效（不走默认 DelayEventAndDestroySelf）
-        if (currentScale > explosionSizeThreshold && collision.collider.name == "DestructibleMeshSegment")
+        if (currentScale > minSize && collision.collider.name == "DestructibleMeshSegment")
         {
             // 从手上脱离
             transform.SetParent(null);
 
             // 停止运动
             StopMoving();
+            Debug.Log("FireBall爆炸了");
 
             // 这里不再调用 base.OnCollisionEnter，避免再触发一次默认破坏逻辑
             // 直接调用基类封装好的“播放特效 + 火球自毁”
