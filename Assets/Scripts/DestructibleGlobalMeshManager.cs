@@ -97,51 +97,6 @@ public class DestructibleGlobalMeshManager : MonoBehaviour
         // 注意：如果 collidedObject 不在 segments 列表中，则不会执行任何操作。
     }
 
-    /// <summary>
-    /// 公共方法：破坏单个网格段（供特效等外部脚本调用）
-    /// </summary>
-    public void DestroySegment(GameObject segment)
-    {
-        if (segment == null)
-        {
-            return;
-        }
-
-        // 检查 segments 列表中是否包含该对象
-        if (segments.Contains(segment))
-        {
-            Debug.Log("Destroying segment: " + segment.name);
-
-            // 调用当前组件的销毁逻辑
-            if (currentComponent != null)
-            {
-                currentComponent.DestroySegment(segment);
-            }
-
-            // 从列表中移除该项
-            segments.Remove(segment);
-        }
-    }
-
-    /// <summary>
-    /// 公共方法：破坏多个网格段（供特效等外部脚本调用）
-    /// </summary>
-    public void DestroySegments(List<GameObject> segmentsToDestroy)
-    {
-        if (segmentsToDestroy == null || segmentsToDestroy.Count == 0)
-        {
-            return;
-        }
-
-        foreach (GameObject segment in segmentsToDestroy)
-        {
-            if (segment != null)
-            {
-                DestroySegment(segment);
-            }
-        }
-    }
-
 
     //// 清理事件监听器
     //private void OnDestroy()
