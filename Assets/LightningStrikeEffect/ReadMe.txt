@@ -1,1 +1,0 @@
-This asset package contains codes for demo scene.
