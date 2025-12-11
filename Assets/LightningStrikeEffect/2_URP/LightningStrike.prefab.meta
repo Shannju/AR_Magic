@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 371c83bc77ec7eb4a8580f87962a886c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/2_URP/LightningStrike.prefab
+  uploadId: 673588

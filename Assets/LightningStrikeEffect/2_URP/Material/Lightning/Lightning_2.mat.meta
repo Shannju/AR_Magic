@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3d08e7faa19e01c4386b51dcb04d01b3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/2_URP/Material/Lightning/Lightning_2.mat
+  uploadId: 673588

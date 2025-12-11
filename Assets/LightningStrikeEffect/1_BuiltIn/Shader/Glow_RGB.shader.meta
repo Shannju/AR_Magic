@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6a83df818ab2cbf41bda1876624a39ed
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/1_BuiltIn/Shader/Glow_RGB.shader
+  uploadId: 673588

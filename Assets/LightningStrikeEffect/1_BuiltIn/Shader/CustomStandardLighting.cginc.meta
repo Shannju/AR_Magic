@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: dc633de4d30b3cc4cb5fe79f5bd6ba74
+timeCreated: 1466694968
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/1_BuiltIn/Shader/CustomStandardLighting.cginc
+  uploadId: 673588

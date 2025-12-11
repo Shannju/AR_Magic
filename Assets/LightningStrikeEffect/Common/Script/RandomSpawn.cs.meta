@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8a3b6f65c9ce92e4d91138c381e12fe6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/Common/Script/RandomSpawn.cs
+  uploadId: 673588
