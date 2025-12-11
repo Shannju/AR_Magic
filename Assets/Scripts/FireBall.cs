@@ -39,42 +39,28 @@ public class FireBall : MagicBall
     /// </summary>
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (isCollisionHandled) return;
-
-        // 忽略魔杖
-        if (collision.collider.CompareTag("Wand"))
-            return;
-
         // 当前大小
         float currentScale = transform.localScale.x;
 
         Vector3 contactPoint = collision.GetContact(0).point;
 
 
-        // ✅ 情况一：达到阈值 —— 触发爆炸特效并破坏墙面
+        // ✅ 情况一：达到阈值 —— 触发爆炸特效（不走默认 DelayEventAndDestroySelf）
         if (currentScale > explosionSizeThreshold && collision.collider.name == "DestructibleMeshSegment")
         {
-            isCollisionHandled = true;
-            
             // 从手上脱离
             transform.SetParent(null);
 
             // 停止运动
             StopMoving();
 
-            // 保存碰撞目标，用于触发破坏事件
-            collidedTarget = collision.gameObject;
-
-            // 播放爆炸特效
+            // 这里不再调用 base.OnCollisionEnter，避免再触发一次默认破坏逻辑
+            // 直接调用基类封装好的“播放特效 + 冰球自毁”
             PlayHitEffectAndDestroy(contactPoint);
-            
-            // 🔥 关键修复：触发破坏事件，通知 DestructibleGlobalMeshManager 破坏墙面
-            RaiseCollisionEvent(collidedTarget);
-            
             return;
         }
 
-        // ✅ 情况二：未达到阈值 —— 按父类默认逻辑（延迟事件 + 自毁）
+        // ✅ 情况二：高于阈值 —— 按父类默认逻辑（延迟事件 + 自毁）
         base.OnCollisionEnter(collision);
 
     }

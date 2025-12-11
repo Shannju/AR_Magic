@@ -32,7 +32,7 @@ public class LightningBreakEffect : MonoBehaviour
 
         if (isCollisionHandled) return;
 
-        // ºöÂÔÄ§ÕÈ
+        // ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½
         if (collision.collider.CompareTag("Wand"))
             return;
 
@@ -42,7 +42,7 @@ public class LightningBreakEffect : MonoBehaviour
 
             collidedTarget = collision.gameObject;
 
-            // Ä¬ÈÏÂß¼­£ºÑÓ³Ù´¥·¢ÊÂ¼þ£¬ÔÙÉ¾³ý×ÔÉí
+            // Ä¬ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ó³Ù´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             StartCoroutine(DelayEventAndDestroySelf());
         }
     }
