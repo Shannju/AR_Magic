@@ -103,7 +103,6 @@ Material:
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 1
     - _DstBlend2: 10
-    - _DstBlendAlpha: 1
     - _EdgeFade: 8
     - _EdgeStrength: 1
     - _EnableBlendModePreserveSpecularLighting: 0
@@ -118,7 +117,6 @@ Material:
     - _QueueOffset: 0
     - _RenderQueueType: 4
     - _SrcBlend: 5
-    - _SrcBlendAlpha: 1
     - _StencilRef: 0
     - _StencilRefDepth: 1
     - _StencilRefDistortionVec: 4
