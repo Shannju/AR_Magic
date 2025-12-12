@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 527332951d694fa4f845380f001adbef
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/2_URP/Material/Lightning/CoreGlow.mat
+  uploadId: 673588

@@ -35,6 +35,11 @@ public class WindBall : MagicBall
     private void HandleHandSignal()
     {
         Debug.Log("[WindBall] 收到 BroadcastHandSignal → 自动销毁自己");
+
+            Vector3 spawnPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+            transform.position = spawnPosition;
+            Instantiate(hitEffectPrefab, spawnPosition, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

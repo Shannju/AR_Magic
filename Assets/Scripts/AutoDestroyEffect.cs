@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AutoDestroyEffect : MonoBehaviour
 {
-    [SerializeField] private float lifeTime = 2f;  // ÌØĞ§´æÔÚ¶à¾Ãºó×Ô¶¯Ïú»Ù
+    [SerializeField] private float lifeTime = 2f;  // ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½Ú¶ï¿½Ãºï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void OnEnable()
     {
-        // lifeTime ÃëºóÏú»ÙÕâ¸öÌØĞ§¶ÔÏó±¾Éí
+        // lifeTime ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Destroy(gameObject, lifeTime);
     }
 }

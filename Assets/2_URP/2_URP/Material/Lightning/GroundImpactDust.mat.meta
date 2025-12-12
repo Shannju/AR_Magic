@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 84d5a7574ad41c243870863f4ba70a9b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286563
+  packageName: Lightning Strike Effect
+  packageVersion: 1.0
+  assetPath: Assets/LightningStrikeEffect/2_URP/Material/Lightning/GroundImpactDust.mat
+  uploadId: 673588

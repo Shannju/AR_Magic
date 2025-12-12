@@ -42,7 +42,7 @@ public class IceBall : MagicBall
             // 这里不再调用 base.OnCollisionEnter，避免再触发一次默认破坏逻辑
             // 直接调用基类封装好的“播放特效 + 冰球自毁”
             PlayHitEffectAndDestroy(contactPoint);
-            return;
+            // return;
         }
 
         // ✅ 情况二：高于阈值 —— 按父类默认逻辑（延迟事件 + 自毁）
